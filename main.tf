@@ -9,7 +9,7 @@ resource "azurerm_virtual_network" "example" {
   name                = each.value.vnet_name
   location            = azurerm_resource_group.rg[each.key].location
   resource_group_name = azurerm_resource_group.rg[each.key].name
-  address_space       = ["10.0.0.0/16"]
+  address_space       = "10.0.0.0/16"
 
   subnet {
     name             = each.value.snet_name1
