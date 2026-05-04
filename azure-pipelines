@@ -44,3 +44,5 @@ jobs:
       parameters:
         workingDirectory: '$(System.DefaultWorkingDirectory)/Vnet-snet-deployment'
         varFile: 'sub-lzlab-dev-uks-01.tfvars'
+        stateKey: 'storage.tfstate'
+
