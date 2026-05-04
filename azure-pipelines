@@ -42,5 +42,5 @@ jobs:
 
     - template: terraform-tasks.yaml@Azure-devops-tasks
       parameters:
-        workingDirectory: '$(System.DefaultWorkingDirectory)/storage-deployment'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Vnet-snet-deployment'
         varFile: 'sub-lzlab-dev-uks-01.tfvars'
