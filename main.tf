@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "rg" {
-  for_each = vnet_resource
+  for_each = var.vnet_resource
   name     = each.value.rg_name
   location = "UK South"
 }
