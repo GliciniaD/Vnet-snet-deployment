@@ -14,11 +14,11 @@ resource "azurerm_virtual_network" "example" {
 
   subnet {
     name             = each.value.snet_name1
-    address_prefixes = ["10.0.1.0/24"]
+    address_prefixe = ["10.0.1.0/24"]
   }
 
   subnet {
     name             = each.value.snet_name2
-    address_prefixes = ["10.0.2.0/24"]
+    address_prefixe = ["10.0.2.0/24"]
   }
 }
