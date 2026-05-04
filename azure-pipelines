@@ -1,0 +1,46 @@
+resources:
+  repositories:
+    - repository: Azure-devops-tasks
+      type: github
+      name: GliciniaD/Azure-devops-tasks
+      endpoint: 'github.com_GliciniaD'
+    - repository: central-variables
+      type: github
+      name: GliciniaD/central-variables
+      endpoint: 'github.com_GliciniaD'
+
+trigger:
+  - none
+
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+  - job: TerraformDeploy
+    variables:
+      ARM_USE_OIDC: 'true'
+      ARM_USE_MSI: 'false'
+      ARM_SUBSCRIPTION_ID: '899effae-fb98-4b70-a9b9-94321a00bcdf'
+    steps:
+    - checkout: self
+    - checkout: central-variables
+
+    - script: |
+        echo "=== Root ==="
+        ls $(System.DefaultWorkingDirectory)
+        echo "=== central-variables ==="
+        ls $(System.DefaultWorkingDirectory)/central-variables
+        echo "=== Landing-Zone-Files ==="
+        ls $(System.DefaultWorkingDirectory)/central-variables/Landing-Zone-Files
+      displayName: Debug folder structure
+
+    - script: |
+        cp $(System.DefaultWorkingDirectory)/central-variables/Landing-Zone-Files/sub-lzlab-dev-uks-01.tfvars \
+           $(System.DefaultWorkingDirectory)/storage-deployment/
+      displayName: Copy tfvars to storage module
+
+    - template: terraform-tasks.yaml@Azure-devops-tasks
+      parameters:
+        workingDirectory: '$(System.DefaultWorkingDirectory)/storage-deployment'
+        varFile: 'sub-lzlab-dev-uks-01.tfvars'
